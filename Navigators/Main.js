@@ -9,7 +9,7 @@ const Main = () => {
   return (
     <Tab.Navigator initialRouteName="Main">
       <Tab.Screen
-        name="Home"
+        name="Inicio"
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => (
