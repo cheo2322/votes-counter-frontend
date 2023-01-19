@@ -8,6 +8,7 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import { BACKEND_URL } from '@env';
 
 const HomeNavigator = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -25,7 +26,7 @@ const HomeNavigator = () => {
 
   function getCandidates() {
     axios
-      .get(`http://192.168.100.8:8080/counter_api/v1/candidate`)
+      .get(`${BACKEND_URL}/counter_api/v1/candidate`)
       .then((res) => setCandidates(res.data))
       .catch((error) => console.error(error));
   }
