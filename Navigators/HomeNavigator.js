@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  FlatList,
 } from 'react-native';
 
 const HomeNavigator = () => {
@@ -38,25 +39,34 @@ const HomeNavigator = () => {
     };
   }, []);
 
+  const Item = ({ item, index }) => (
+    <View
+      style={{
+        backgroundColor: index % 2 === 0 ? '#E5E4E2' : 'white',
+        padding: 10,
+      }}
+    >
+      <Text>
+        Candidato: {item.name} {item.lastName} {'\n'}
+        Delegaci&oacute;n: {item.position} {'\n'}
+        Lista: {item.list} {'\n'}
+        Ciudad: {item.city} {'\n'}
+        Provincia: {item.province} {'\n'}
+        Votos: {item.votes}
+      </Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
+      <FlatList
+        data={candidates}
+        renderItem={({ item, index }) => <Item item={item} index={index} />}
+        keyExtractor={(item) => item.id}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-      >
-        {candidates.map((item, key) => (
-          <Text key={key}>
-            Candidato: {item.name} {item.lastName} {'\n'}
-            Delegaci&oacute;n: {item.position} {'\n'}
-            Lista: {item.list} {'\n'}
-            Ciudad: {item.city} {'\n'}
-            Provincia: {item.province} {'\n'}
-            Votos: {item.votes}
-          </Text>
-        ))}
-      </ScrollView>
+      />
     </SafeAreaView>
   );
 };
@@ -64,11 +74,7 @@ const HomeNavigator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 10,
   },
 });
 
