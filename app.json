@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CounterFrontend",
+    "name": "Votos 2023",
     "slug": "CounterFrontend",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,20 +14,25 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cheohidalgo.CounterFrontend"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.cheohidalgo.CounterFrontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "499e1b8a-4101-4b88-922e-50ad7b21376c"
+      }
     }
   }
 }
