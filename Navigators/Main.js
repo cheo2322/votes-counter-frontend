@@ -13,6 +13,7 @@ const Main = () => {
         name="Inicio"
         component={HomeNavigator}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
           ),
