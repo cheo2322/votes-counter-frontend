@@ -1,8 +1,11 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 
 import FormContainer from '../Shared/Form/FormContainer';
 import Input from '../Shared/Form/Input';
+
+import { BACKEND_URL } from '@env';
 
 const CandidateNavigator = () => {
   const [name, setName] = useState('');
@@ -11,6 +14,45 @@ const CandidateNavigator = () => {
   const [city, setCity] = useState('');
   const [province, setProvince] = useState('');
   const [position, setPosition] = useState('');
+
+  const postCandidate = () => {
+    if (
+      name === '' ||
+      lastName === '' ||
+      list === '' ||
+      city === '' ||
+      province === '' ||
+      position === ''
+    ) {
+      alert('Por favor llene todos los campos');
+    } else {
+      const candidate = {
+        name: name,
+        lastName: lastName,
+        list: list,
+        city: city,
+        province: province,
+        position: position,
+      };
+
+      axios
+        .post(`${BACKEND_URL}/counter_api/v1/candidate`, candidate)
+        .then((res) => {
+          alert(`${res.data.name} agregado correctamente`);
+
+          setName('');
+          setLastName('');
+          setList('');
+          setCity('');
+          setProvince('');
+          setPosition('');
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Hubo un problema');
+        });
+    }
+  };
 
   return (
     <FormContainer title={''}>
@@ -33,6 +75,7 @@ const CandidateNavigator = () => {
         name={'list'}
         id={'list'}
         value={list}
+        keyboardType={'numeric'}
         onChangeText={(text) => setList(text)}
       />
       <Input
@@ -57,7 +100,7 @@ const CandidateNavigator = () => {
         onChangeText={(text) => setPosition(text)}
       />
       <View style={[{ marginBottom: 40 }, styles.buttonGroup]}>
-        <Button title="Enviar"></Button>
+        <Button title="Enviar" onPress={postCandidate}></Button>
       </View>
     </FormContainer>
   );
