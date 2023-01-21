@@ -50,9 +50,7 @@ const HomeNavigator = () => {
         Candidato: {item.name} {item.lastName} {'\n'}
         Delegaci&oacute;n: {item.position} {'\n'}
         Lista: {item.list} {'\n'}
-        Ciudad: {item.city} {'\n'}
-        Provincia: {item.province} {'\n'}
-        Votos: {item.votes}
+        Votos Totales: {item.votes}
       </Text>
     </View>
   );
