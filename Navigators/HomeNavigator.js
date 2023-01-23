@@ -87,7 +87,60 @@ const HomeNavigator = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <ScrollView contentContainerStyle={styles.centeredView}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 22,
+          }}
+        >
+          <View style={[styles.modalView, { justifyContent: 'center' }]}>
+            <Pressable
+              style={[styles.button, styles.marginBtm]}
+              onPress={() => {}}
+            >
+              <Text style={{ textAlign: 'center' }}>
+                Ver votos por parroquias
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.marginBtm]}
+              onPress={() => {}}
+            >
+              <Text style={{ textAlign: 'center' }}>
+                Ver votos por recintos electorales
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.marginBtm]}
+              onPress={() => {}}
+            >
+              <Text style={{ textAlign: 'center' }}>
+                Ver votos por junta receptora del voto
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.marginBtm]}
+              onPress={() => {}}
+            >
+              <Text style={{ textAlign: 'center' }}>
+                Ver votos por g&eacute;nero
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose, { width: 260 }]}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                setFocusCandidate({});
+                setFocusVotes([]);
+              }}
+            >
+              <Text style={styles.textStyle}>Cerrar</Text>
+            </Pressable>
+          </View>
+        </View>
+        {/* <ScrollView contentContainerStyle={styles.centeredView}>
           <View style={styles.modalView}>
             {focusCandidate ? (
               <View key={focusCandidate.id}>
@@ -130,7 +183,7 @@ const HomeNavigator = () => {
               <Text style={styles.textStyle}>Cerrar</Text>
             </Pressable>
           </View>
-        </ScrollView>
+        </ScrollView> */}
       </Modal>
 
       <FlatList
@@ -192,6 +245,10 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  marginBtm: {
+    marginBottom: 10,
+    width: 260,
   },
 });
 
