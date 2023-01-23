@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { BACKEND_URL } from '@env';
 
-const HomeNavigator = () => {
+const HomeNavigator = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -98,7 +98,10 @@ const HomeNavigator = () => {
           <View style={[styles.modalView, { justifyContent: 'center' }]}>
             <Pressable
               style={[styles.button, styles.marginBtm]}
-              onPress={() => {}}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                navigation.navigate('Votes');
+              }}
             >
               <Text style={{ textAlign: 'center' }}>
                 Ver votos por parroquias
