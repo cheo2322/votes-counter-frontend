@@ -100,7 +100,10 @@ const HomeNavigator = ({ navigation }) => {
               style={[styles.button, styles.marginBtm]}
               onPress={() => {
                 setModalVisible(!modalVisible);
-                navigation.navigate('Votes');
+                navigation.navigate('Votes', {
+                  candidateRoute: focusCandidate,
+                  votesRoute: focusVotes,
+                });
               }}
             >
               <Text style={{ textAlign: 'center' }}>
