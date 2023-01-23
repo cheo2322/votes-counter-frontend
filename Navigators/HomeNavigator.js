@@ -9,6 +9,7 @@ import {
   FlatList,
   Pressable,
   Modal,
+  ScrollView,
 } from 'react-native';
 import { BACKEND_URL } from '@env';
 
@@ -17,6 +18,7 @@ const HomeNavigator = () => {
   const [candidates, setCandidates] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [focusCandidate, setFocusCandidate] = useState({});
+  const [focusVotes, setFocusVotes] = useState([]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -42,6 +44,15 @@ const HomeNavigator = () => {
     };
   }, []);
 
+  const setCandidate = (item) => {
+    setFocusCandidate(item);
+
+    axios
+      .get(`${BACKEND_URL}/counter_api/v1/candidate/${item.id}/votes`)
+      .then((res) => setFocusVotes(res.data))
+      .catch((error) => console.error(error));
+  };
+
   const Item = ({ item, index }) => (
     <View
       style={{
@@ -53,7 +64,7 @@ const HomeNavigator = () => {
         key={index}
         onPress={() => {
           setModalVisible(true);
-          setFocusCandidate(item);
+          setCandidate(item);
         }}
       >
         <Text>
@@ -73,11 +84,10 @@ const HomeNavigator = () => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
+        <ScrollView contentContainerStyle={styles.centeredView}>
           <View style={styles.modalView}>
             {focusCandidate ? (
               <View key={focusCandidate.id}>
@@ -88,13 +98,14 @@ const HomeNavigator = () => {
                 <Text>Lista {focusCandidate.list}</Text>
                 <Text>{focusCandidate.totalVotes} votos totales</Text>
 
-                {focusCandidate.votes ? (
+                {focusVotes ? (
                   <View style={{ paddingTop: 10, paddingBottom: 10 }}>
                     <Text>Votos por parroquias:</Text>
-                    {focusCandidate.votes.map((item, index) => {
+                    {focusVotes.map((item, index) => {
                       return (
                         <Text key={index}>
-                          {item.parish} : {item.votesAmount}
+                          {item.parish} - {item.precinct} - {item.desk} -{' '}
+                          {item.deskType} : {item.votesAmount} votos
                         </Text>
                       );
                     })}
@@ -113,12 +124,13 @@ const HomeNavigator = () => {
               onPress={() => {
                 setModalVisible(!modalVisible);
                 setFocusCandidate({});
+                setFocusVotes([]);
               }}
             >
               <Text style={styles.textStyle}>Cerrar</Text>
             </Pressable>
           </View>
-        </View>
+        </ScrollView>
       </Modal>
 
       <FlatList
@@ -141,7 +153,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   centeredView: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
