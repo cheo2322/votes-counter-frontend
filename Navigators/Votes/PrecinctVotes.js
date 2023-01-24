@@ -5,11 +5,11 @@ import axios from 'axios';
 
 import { BACKEND_URL } from '@env';
 
-function Votes({ route, navigation }) {
+function PrecinctVotes({ route, navigation }) {
   const [votes, setVotes] = useState([]);
   const { candidate, requestType } = route.params;
 
-  var spanishType = 'parroquia';
+  var spanishType = 'junta receptora del voto';
   if (requestType === 'precinct') {
     spanishType = 'recinto electoral';
   }
@@ -41,55 +41,13 @@ function Votes({ route, navigation }) {
 
             {votes && votes.length > 0 ? (
               <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+                <Text>Votos por {spanishType}:</Text>
                 {votes.map((item, index) => {
                   return (
-                    <View
-                      key={index}
-                      style={{ paddingTop: 10, paddingBottom: 10 }}
-                    >
-                      <Text>
-                        <Text style={{ fontWeight: 'bold' }}>Parroquia: </Text>
-                        {item.parish}
-                      </Text>
-
-                      {item.votesByPrecinct &&
-                      item.votesByPrecinct.length > 0 ? (
-                        <View>
-                          {item.votesByPrecinct.map((item2, index2) => {
-                            return (
-                              <View key={index2}>
-                                <Text>
-                                  <Text style={{ fontWeight: 'bold' }}>
-                                    Recinto electoral:{' '}
-                                  </Text>
-                                  {item2.precinct}
-                                </Text>
-
-                                {item2.votesByDesk &&
-                                item2.votesByDesk.length > 0 ? (
-                                  <View>
-                                    {item2.votesByDesk.map((item3, index3) => {
-                                      return (
-                                        <View key={index3}>
-                                          <Text>
-                                            {item3.deskType} {item3.desk}:{' '}
-                                            {item3.amount}
-                                          </Text>
-                                        </View>
-                                      );
-                                    })}
-                                  </View>
-                                ) : (
-                                  <Text>No</Text>
-                                )}
-                              </View>
-                            );
-                          })}
-                        </View>
-                      ) : (
-                        <Text>No</Text>
-                      )}
-                    </View>
+                    <Text key={index}>
+                      {item.parish} - {item.precinct} - {item.deskType} -{' '}
+                      {item.desk}: {item.votesAmount} votos
+                    </Text>
                   );
                 })}
               </View>
@@ -157,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Votes;
+export default PrecinctVotes;

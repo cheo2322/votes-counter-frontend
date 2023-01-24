@@ -91,7 +91,10 @@ const HomeNavigator = ({ navigation }) => {
               style={[styles.button, styles.marginBtm]}
               onPress={() => {
                 setModalVisible(!modalVisible);
-                navigation.navigate('Votes', focusCandidate);
+                navigation.navigate('Votes', {
+                  candidate: focusCandidate,
+                  requestType: 'parish',
+                });
               }}
             >
               <Text style={{ textAlign: 'center' }}>
@@ -100,7 +103,13 @@ const HomeNavigator = ({ navigation }) => {
             </Pressable>
             <Pressable
               style={[styles.button, styles.marginBtm]}
-              onPress={() => {}}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                navigation.navigate('Votes', {
+                  candidate: focusCandidate,
+                  requestType: 'precinct',
+                });
+              }}
             >
               <Text style={{ textAlign: 'center' }}>
                 Ver votos por recintos electorales
@@ -108,18 +117,16 @@ const HomeNavigator = ({ navigation }) => {
             </Pressable>
             <Pressable
               style={[styles.button, styles.marginBtm]}
-              onPress={() => {}}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                navigation.navigate('Votes', {
+                  candidate: focusCandidate,
+                  requestType: 'desk',
+                });
+              }}
             >
               <Text style={{ textAlign: 'center' }}>
                 Ver votos por junta receptora del voto
-              </Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.marginBtm]}
-              onPress={() => {}}
-            >
-              <Text style={{ textAlign: 'center' }}>
-                Ver votos por g&eacute;nero
               </Text>
             </Pressable>
             <Pressable

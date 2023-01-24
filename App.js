@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Main from './Navigators/Main';
 import Votes from './Navigators/Votes/Votes';
+import PrecinctVotes from './Navigators/Votes/PrecinctVotes';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,11 @@ export default function App() {
         <Stack.Screen
           name="Votes"
           component={Votes}
+          options={{ title: 'Votos' }}
+        />
+        <Stack.Screen
+          name="PrecinctVotes"
+          component={PrecinctVotes}
           options={{ title: 'Votos' }}
         />
       </Stack.Navigator>
