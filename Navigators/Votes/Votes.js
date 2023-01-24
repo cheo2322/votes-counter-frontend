@@ -34,7 +34,7 @@ function Votes({ route, navigation }) {
             <Text>Lista {candidateRoute.list}</Text>
             <Text>{candidateRoute.totalVotes} votos totales</Text>
 
-            {votes ? (
+            {votes && votes.length > 0 ? (
               <View style={{ paddingTop: 10, paddingBottom: 10 }}>
                 <Text>Votos por parroquias:</Text>
                 {votes.map((item, index) => {
