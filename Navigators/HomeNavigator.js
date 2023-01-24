@@ -1,3 +1,5 @@
+//TODO: text color on modal
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {
@@ -9,7 +11,6 @@ import {
   FlatList,
   Pressable,
   Modal,
-  ScrollView,
 } from 'react-native';
 import { BACKEND_URL } from '@env';
 
@@ -18,7 +19,6 @@ const HomeNavigator = ({ navigation }) => {
   const [candidates, setCandidates] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [focusCandidate, setFocusCandidate] = useState({});
-  const [focusVotes, setFocusVotes] = useState([]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -44,15 +44,6 @@ const HomeNavigator = ({ navigation }) => {
     };
   }, []);
 
-  const setCandidate = (item) => {
-    setFocusCandidate(item);
-
-    axios
-      .get(`${BACKEND_URL}/counter_api/v1/candidate/${item.id}/votes`)
-      .then((res) => setFocusVotes(res.data))
-      .catch((error) => console.error(error));
-  };
-
   const Item = ({ item, index }) => (
     <View
       style={{
@@ -64,7 +55,7 @@ const HomeNavigator = ({ navigation }) => {
         key={index}
         onPress={() => {
           setModalVisible(true);
-          setCandidate(item);
+          setFocusCandidate(item);
         }}
       >
         <Text>
@@ -100,10 +91,7 @@ const HomeNavigator = ({ navigation }) => {
               style={[styles.button, styles.marginBtm]}
               onPress={() => {
                 setModalVisible(!modalVisible);
-                navigation.navigate('Votes', {
-                  candidateRoute: focusCandidate,
-                  votesRoute: focusVotes,
-                });
+                navigation.navigate('Votes', focusCandidate);
               }}
             >
               <Text style={{ textAlign: 'center' }}>
@@ -139,57 +127,12 @@ const HomeNavigator = ({ navigation }) => {
               onPress={() => {
                 setModalVisible(!modalVisible);
                 setFocusCandidate({});
-                setFocusVotes([]);
               }}
             >
               <Text style={styles.textStyle}>Cerrar</Text>
             </Pressable>
           </View>
         </View>
-        {/* <ScrollView contentContainerStyle={styles.centeredView}>
-          <View style={styles.modalView}>
-            {focusCandidate ? (
-              <View key={focusCandidate.id}>
-                <Text style={styles.modalText}>
-                  {focusCandidate.name} {focusCandidate.lastName}
-                </Text>
-                <Text>{focusCandidate.position}</Text>
-                <Text>Lista {focusCandidate.list}</Text>
-                <Text>{focusCandidate.totalVotes} votos totales</Text>
-
-                {focusVotes ? (
-                  <View style={{ paddingTop: 10, paddingBottom: 10 }}>
-                    <Text>Votos por parroquias:</Text>
-                    {focusVotes.map((item, index) => {
-                      return (
-                        <Text key={index}>
-                          {item.parish} - {item.precinct} - {item.desk} -{' '}
-                          {item.deskType} : {item.votesAmount} votos
-                        </Text>
-                      );
-                    })}
-                  </View>
-                ) : (
-                  <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
-                    No hay información de los votos por parroquias
-                  </Text>
-                )}
-              </View>
-            ) : (
-              <Text>Lo sentimos. No pudimos consultar la información</Text>
-            )}
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-                setFocusCandidate({});
-                setFocusVotes([]);
-              }}
-            >
-              <Text style={styles.textStyle}>Cerrar</Text>
-            </Pressable>
-          </View>
-        </ScrollView> */}
       </Modal>
 
       <FlatList
@@ -236,9 +179,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
   },
   buttonClose: {
     backgroundColor: '#2196F3',
