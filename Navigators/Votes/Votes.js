@@ -36,66 +36,24 @@ function Votes({ route, navigation }) {
               {candidate.name} {candidate.lastName}
             </Text>
             <Text>{candidate.position}</Text>
-            <Text>Lista {candidate.list}</Text>
             <Text>{candidate.totalVotes} votos totales</Text>
 
             {votes && votes.length > 0 ? (
               <View style={{ paddingTop: 10, paddingBottom: 10 }}>
+                <Text style={{ fontWeight: 'bold' }}>
+                  Votos por {spanishType}
+                </Text>
                 {votes.map((item, index) => {
                   return (
-                    <View
-                      key={index}
-                      style={{ paddingTop: 10, paddingBottom: 10 }}
-                    >
-                      <Text>
-                        <Text style={{ fontWeight: 'bold' }}>Parroquia: </Text>
-                        {item.parish}
-                      </Text>
-
-                      {item.votesByPrecinct &&
-                      item.votesByPrecinct.length > 0 ? (
-                        <View>
-                          {item.votesByPrecinct.map((item2, index2) => {
-                            return (
-                              <View key={index2}>
-                                <Text>
-                                  <Text style={{ fontWeight: 'bold' }}>
-                                    Recinto electoral:{' '}
-                                  </Text>
-                                  {item2.precinct}
-                                </Text>
-
-                                {item2.votesByDesk &&
-                                item2.votesByDesk.length > 0 ? (
-                                  <View>
-                                    {item2.votesByDesk.map((item3, index3) => {
-                                      return (
-                                        <View key={index3}>
-                                          <Text>
-                                            {item3.deskType} {item3.desk}:{' '}
-                                            {item3.amount}
-                                          </Text>
-                                        </View>
-                                      );
-                                    })}
-                                  </View>
-                                ) : (
-                                  <Text>No</Text>
-                                )}
-                              </View>
-                            );
-                          })}
-                        </View>
-                      ) : (
-                        <Text>No</Text>
-                      )}
-                    </View>
+                    <Text key={index}>
+                      {item.name}: {item.value} votos
+                    </Text>
                   );
                 })}
               </View>
             ) : (
               <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
-                No hay información de los votos por {spanishType}
+                No existe información de votos por {spanishType}
               </Text>
             )}
           </View>
