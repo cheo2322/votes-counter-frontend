@@ -11,6 +11,7 @@ import {
   FlatList,
   Pressable,
   Modal,
+  StatusBar,
 } from 'react-native';
 import { BACKEND_URL } from '@env';
 import Banner from '../Shared/Banner/Banner';
@@ -140,9 +141,16 @@ const HomeNavigator = ({ navigation }) => {
           </View>
         </View>
       </Modal>
+
       <View style={styles.bannerView}>
         <Banner />
       </View>
+
+      <StatusBar
+        animated={true}
+        backgroundColor="#1948BA"
+        barStyle={'light-content'}
+      />
 
       <FlatList
         data={candidates}
@@ -208,6 +216,7 @@ const styles = StyleSheet.create({
   bannerView: {
     height: '20%',
     backgroundColor: '#1948BA',
+    marginTop: -20,
   },
 });
 

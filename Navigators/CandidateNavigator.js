@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, StatusBar } from 'react-native';
 import { Select, Icon, NativeBaseProvider } from 'native-base';
 
 import FormContainer from '../Shared/Form/FormContainer';
@@ -43,6 +43,12 @@ const CandidateNavigator = () => {
 
   return (
     <NativeBaseProvider>
+      <StatusBar
+        animated={true}
+        backgroundColor="#1948BA"
+        barStyle={'light-content'}
+      />
+
       <FormContainer>
         <Input
           placeholder={'Nombre'}
