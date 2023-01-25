@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Votos 2023",
-    "slug": "CounterFrontend",
+    "slug": "Votos2023",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,24 +14,26 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cheohidalgo.CounterFrontend"
+      "bundleIdentifier": "com.cheohidalgo.Votos2023"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.cheohidalgo.CounterFrontend"
+      "package": "com.cheohidalgo.Votos2023"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "499e1b8a-4101-4b88-922e-50ad7b21376c"
+        "projectId": "990693ff-43ae-4ad0-a4f7-0d81d2d82999"
       }
     }
   }
