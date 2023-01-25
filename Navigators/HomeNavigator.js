@@ -13,6 +13,7 @@ import {
   Modal,
 } from 'react-native';
 import { BACKEND_URL } from '@env';
+import Banner from '../Shared/Banner/Banner';
 
 const HomeNavigator = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -61,7 +62,6 @@ const HomeNavigator = ({ navigation }) => {
         <Text>
           Candidato: {item.name} {item.lastName} {'\n'}
           Delegaci&oacute;n: {item.position} {'\n'}
-          Lista: {item.list} {'\n'}
           Votos Totales: {item.totalVotes}
         </Text>
       </Pressable>
@@ -141,6 +141,9 @@ const HomeNavigator = ({ navigation }) => {
           </View>
         </View>
       </Modal>
+      <View style={styles.bannerView}>
+        <Banner />
+      </View>
 
       <FlatList
         data={candidates}
@@ -202,6 +205,10 @@ const styles = StyleSheet.create({
   marginBtm: {
     marginBottom: 10,
     width: 260,
+  },
+  bannerView: {
+    height: '20%',
+    backgroundColor: '#1948BA',
   },
 });
 

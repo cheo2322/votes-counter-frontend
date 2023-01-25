@@ -8,31 +8,21 @@ import Input from '../Shared/Form/Input';
 
 import { BACKEND_URL } from '@env';
 
-const positions = ['ALCALDE', 'PREFECTO', 'CONCEJAL'];
-// const parishes = [
-//   { value: 'SAN_MIGUEL_DE_URCUQUI', label: 'SAN MIGUEL DE URCUQUI' },
-//   { value: 'PABLO_ARENAS', label: 'PABLO ARENAS' },
-//   { value: 'CAHUASQUI', label: 'CAHUASQUI' },
-//   { value: 'BUENOS_AIRES', label: 'BUENOS AIRES' },
-//   { value: 'SAN_BLAS', label: 'SAN BLAS' },
-//   { value: 'TUMBABIRO', label: 'TUMBABIRO' },
-// ];
+const positions = ['PREFECTO', 'ALCALDE', 'CONCEJAL URBANO', 'CONCEJAL RURAL'];
 
 const CandidateNavigator = () => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [list, setList] = useState('');
   const [position, setPosition] = useState('');
 
   const postCandidate = () => {
-    if (name === '' || lastName === '' || list === '' || position === '') {
+    if (name === '' || lastName === '' || position === '') {
       alert('Por favor llene todos los campos');
     } else {
       const candidate = {
         name: name,
         lastName: lastName,
-        list: list,
-        position: position,
+        position: position.replace(' ', '_'),
       };
 
       axios
@@ -42,7 +32,6 @@ const CandidateNavigator = () => {
 
           setName('');
           setLastName('');
-          setList('');
           setPosition('');
         })
         .catch((error) => {
@@ -69,34 +58,6 @@ const CandidateNavigator = () => {
           value={lastName}
           onChangeText={(text) => setLastName(text)}
         />
-        <Input
-          placeholder={'Lista'}
-          name={'list'}
-          id={'list'}
-          value={list}
-          keyboardType={'numeric'}
-          onChangeText={(text) => setList(text)}
-        />
-        {/* <Select
-          minWidth="80%"
-          borderColor={'orange.300'}
-          height={60}
-          borderRadius={20}
-          borderWidth={2}
-          marginBottom={2.5}
-          placeholderStyle={{ color: '#007aff' }}
-          placeholderIconColor="#007aff"
-          iosIcon={<Icon name="arrow-down" color={'#007aff'} />}
-          placeholder="Selecciona una parroquia"
-          selectedValue={parish}
-          onValueChange={(e) => setParish(e)}
-        >
-          {parishes.map((p) => {
-            return (
-              <Select.Item key={p.value} label={p.label} value={p.value} />
-            );
-          })}
-        </Select> */}
         <Select
           minWidth="80%"
           borderColor={'orange.300'}
