@@ -14,6 +14,12 @@ const Main = () => {
         component={HomeNavigator}
         options={{
           unmountOnBlur: true,
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#1948BA',
+          },
+          headerTintColor: 'white',
+          headerTransparent: true,
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
           ),
@@ -23,9 +29,13 @@ const Main = () => {
         name="Nuevo candidato"
         component={CandidateNavigator}
         options={{
+          headerTintColor: 'white',
           tabBarIcon: ({ color }) => (
             <Icon name="plus" color={color} size={30} />
           ),
+          headerStyle: {
+            backgroundColor: '#1948BA',
+          },
         }}
       />
     </Tab.Navigator>
