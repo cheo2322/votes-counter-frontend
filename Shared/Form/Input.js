@@ -1,5 +1,5 @@
-import React from "react";
-import { TextInput, StyleSheet } from "react-native";
+import React from 'react';
+import { TextInput, StyleSheet } from 'react-native';
 
 const Input = (props) => {
   return (
@@ -20,14 +20,14 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
   input: {
-    width: "80%",
+    width: '80%',
     height: 60,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     margin: 10,
     borderRadius: 20,
     padding: 10,
     borderWidth: 2,
-    borderColor: "orange",
+    borderColor: '#FEE101',
   },
 });
 

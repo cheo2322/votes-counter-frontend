@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { Select, Icon, CheckIcon, NativeBaseProvider } from 'native-base';
+import { Select, Icon, NativeBaseProvider } from 'native-base';
 
 import FormContainer from '../Shared/Form/FormContainer';
 import Input from '../Shared/Form/Input';
@@ -60,7 +60,8 @@ const CandidateNavigator = () => {
         />
         <Select
           minWidth="80%"
-          borderColor={'orange.300'}
+          backgroundColor={'white'}
+          borderColor={'#FEE101'}
           height={60}
           borderRadius={20}
           borderWidth={2}
@@ -76,7 +77,11 @@ const CandidateNavigator = () => {
           })}
         </Select>
         <View style={styles.buttonGroup}>
-          <Button title="Enviar" onPress={postCandidate}></Button>
+          <Button
+            title="Enviar"
+            onPress={postCandidate}
+            color={'#1948BA'}
+          ></Button>
         </View>
       </FormContainer>
     </NativeBaseProvider>
@@ -88,16 +93,6 @@ const styles = StyleSheet.create({
     width: '80%',
     alignItems: 'center',
     margin: 40,
-  },
-  input: {
-    width: '80%',
-    height: 60,
-    backgroundColor: 'white',
-    margin: 10,
-    borderRadius: 20,
-    padding: 10,
-    borderWidth: 2,
-    borderColor: 'orange',
   },
 });
 
