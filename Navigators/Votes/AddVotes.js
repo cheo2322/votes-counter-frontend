@@ -9,7 +9,7 @@ import Input from '../../Shared/Form/Input';
 import { BACKEND_URL } from '@env';
 
 const parishes = [
-  { value: 'SAN_MIGUEL_DE_URCUQUI', label: 'Urcuquí' },
+  { value: 'URCUQUI', label: 'Urcuquí' },
   { value: 'PABLO_ARENAS', label: 'Pablo Arenas' },
   { value: 'CAHUASQUI', label: 'Cahuasquí' },
   { value: 'BUENOS_AIRES', label: 'La Merced de Buenos Aires' },
