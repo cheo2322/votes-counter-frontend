@@ -17,7 +17,7 @@ const CandidateNavigator = () => {
 
   const postCandidate = () => {
     if (name === '' || lastName === '' || position === '') {
-      alert('Por favor llene todos los campos');
+      alert('Por favor, llene todos los campos');
     } else {
       const candidate = {
         name: name,

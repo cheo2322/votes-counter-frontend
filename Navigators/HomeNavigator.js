@@ -13,6 +13,9 @@ import {
   Modal,
   StatusBar,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Button } from '@rneui/base';
+
 import { BACKEND_URL } from '@env';
 import Banner from '../Shared/Banner/Banner';
 
@@ -51,6 +54,7 @@ const HomeNavigator = ({ navigation }) => {
       style={{
         backgroundColor: index % 2 === 0 ? '#E5E4E2' : 'white',
         padding: 10,
+        flexDirection: 'row',
       }}
     >
       <Pressable
@@ -66,6 +70,14 @@ const HomeNavigator = ({ navigation }) => {
           Votos Totales: {item.totalVotes}
         </Text>
       </Pressable>
+      <View style={{ position: 'absolute', right: 25, top: 20 }}>
+        <Button
+          title=""
+          icon={<Icon name="plus" size={17} color="white" />}
+          onPress={() => navigation.navigate('AddVotes', { candidate: item })}
+          color="#1948BA"
+        />
+      </View>
     </View>
   );
 

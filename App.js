@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Main from './Navigators/Main';
+import AddVotes from './Navigators/Votes/AddVotes';
 import DetailedVotes from './Navigators/Votes/DetailedVotes';
 import Votes from './Navigators/Votes/Votes';
 
@@ -25,6 +26,11 @@ export default function App() {
           name="Votes"
           component={Votes}
           options={{ title: 'Votos' }}
+        />
+        <Stack.Screen
+          name="AddVotes"
+          component={AddVotes}
+          options={{ title: 'Agregar votos' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
