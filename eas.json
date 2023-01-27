@@ -13,6 +13,11 @@
     "preview3": {
       "developmentClient": true
     },
-    "production": {}
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "BACKEND_URL": "https://votes-counter-backend.ue.r.appspot.com"
+      }
+    }
   }
 }
