@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Dimensions, View, ScrollView } from 'react-native';
+import { Image, StyleSheet, Dimensions, View } from 'react-native';
 
 var { width } = Dimensions.get('window');
 
@@ -7,7 +7,7 @@ const Banner = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/banner/logo.jpg')}
+        source={require('../../assets/banner/logo.png')}
         style={styles.imageBanner}
         resizeMode="contain"
       />
