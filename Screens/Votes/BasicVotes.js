@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { BACKEND_URL } from '@env';
 
-function Votes({ route, navigation }) {
+function BasicVotes({ route, navigation }) {
   const [votes, setVotes] = useState([]);
   const { candidate, requestType } = route.params;
 
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Votes;
+export default BasicVotes;

@@ -17,9 +17,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from '@rneui/base';
 
 import { BACKEND_URL } from '@env';
-import Banner from '../Shared/Banner/Banner';
+import Banner from '../../Shared/Banner/Banner';
 
-const HomeNavigator = ({ navigation }) => {
+const MainVotes = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -232,4 +232,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeNavigator;
+export default MainVotes;
