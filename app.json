@@ -2,14 +2,14 @@
   "expo": {
     "name": "Votos Avanza Urcuquí 2023",
     "slug": "Votos2023",
-    "version": "1.0.1",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1948BA"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
