@@ -1,45 +1,40 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import MainVotes from '../Screens/Votes/MainVotes';
-import CandidateNavigator from './CandidateNavigator';
+import BasicVotes from '../Screens/Votes/BasicVotes';
+import DetailedVotes from '../Screens/Votes/DetailedVotes';
+import AddVotes from '../Screens/Votes/AddVotes';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const VotesNavigator = () => {
+function MyStack() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Inicio"
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MainVotes"
         component={MainVotes}
-        options={{
-          unmountOnBlur: true,
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: '#1948BA',
-          },
-          headerTintColor: 'white',
-          headerTransparent: true,
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={30} />
-          ),
-        }}
+        options={{ headerShown: false }}
       />
-      <Tab.Screen
-        name="Nuevo candidato"
-        component={CandidateNavigator}
-        options={{
-          headerTintColor: 'white',
-          tabBarIcon: ({ color }) => (
-            <Icon name="plus" color={color} size={30} />
-          ),
-          headerStyle: {
-            backgroundColor: '#1948BA',
-          },
-        }}
+      <Stack.Screen
+        name="BasicVotes"
+        component={BasicVotes}
+        options={{ title: 'Votos' }}
       />
-    </Tab.Navigator>
+      <Stack.Screen
+        name="DetailedVotes"
+        component={DetailedVotes}
+        options={{ title: 'Votos' }}
+      />
+      <Stack.Screen
+        name="AddVotes"
+        component={AddVotes}
+        options={{ title: 'Agregar votos' }}
+      />
+    </Stack.Navigator>
   );
-};
+}
 
-export default VotesNavigator;
+export default function VotesNavigator() {
+  return <MyStack />;
+}

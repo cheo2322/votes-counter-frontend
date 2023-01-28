@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { View, StyleSheet, Button, StatusBar } from 'react-native';
-import { Select, Icon, NativeBaseProvider } from 'native-base';
+import { NativeBaseProvider } from 'native-base';
+import SelectDropdown from 'react-native-select-dropdown';
 
 import FormContainer from '../Shared/Form/FormContainer';
 import Input from '../Shared/Form/Input';
@@ -57,6 +58,7 @@ const CandidateNavigator = () => {
           value={name}
           onChangeText={(text) => setName(text)}
         />
+
         <Input
           placeholder={'Apellido'}
           name={'lastName'}
@@ -64,24 +66,24 @@ const CandidateNavigator = () => {
           value={lastName}
           onChangeText={(text) => setLastName(text)}
         />
-        <Select
-          minWidth="80%"
-          backgroundColor={'white'}
-          borderColor={'#FEE101'}
-          height={60}
-          borderRadius={20}
-          borderWidth={2}
-          placeholderStyle={{ color: '#007aff' }}
-          placeholderIconColor="#007aff"
-          iosIcon={<Icon name="arrow-down" color={'#007aff'} />}
-          placeholder="Selecciona una delegación"
-          selectedValue={position}
-          onValueChange={(e) => setPosition(e)}
-        >
-          {positions.map((p) => {
-            return <Select.Item key={p} label={p} value={p} />;
-          })}
-        </Select>
+
+        <SelectDropdown
+          data={positions}
+          defaultButtonText={'Seleccione una delegación'}
+          buttonTextStyle={{ fontSize: 14 }}
+          rowTextStyle={{ fontSize: 14 }}
+          buttonStyle={{ width: 250 }}
+          onSelect={(selectedItem) => {
+            setPosition(selectedItem);
+          }}
+          buttonTextAfterSelection={(selectedItem) => {
+            return selectedItem;
+          }}
+          rowTextForSelection={(item) => {
+            return item;
+          }}
+        />
+
         <View style={styles.buttonGroup}>
           <Button
             title="Enviar"

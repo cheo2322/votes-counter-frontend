@@ -102,7 +102,7 @@ function DetailedVotes({ route, navigation }) {
         <Pressable
           style={[styles.button, styles.buttonClose]}
           onPress={() => {
-            navigation.navigate('Main');
+            navigation.navigate('MainVotes');
             setVotes([]);
           }}
         >
