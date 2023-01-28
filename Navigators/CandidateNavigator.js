@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Button, StatusBar } from 'react-native';
 import { NativeBaseProvider } from 'native-base';
 import SelectDropdown from 'react-native-select-dropdown';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import FormContainer from '../Shared/Form/FormContainer';
 import Input from '../Shared/Form/Input';
@@ -12,9 +13,21 @@ import { BACKEND_URL } from '@env';
 const positions = ['PREFECTO', 'ALCALDE', 'CONCEJAL URBANO', 'CONCEJAL RURAL'];
 
 const CandidateNavigator = () => {
+  const [token, setToken] = useState('');
+
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [position, setPosition] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('jwt')
+      .then((res) => setToken(res))
+      .catch((error) => console.log(error));
+
+    return () => {
+      setToken();
+    };
+  }, []);
 
   const postCandidate = () => {
     if (name === '' || lastName === '' || position === '') {
@@ -26,8 +39,14 @@ const CandidateNavigator = () => {
         position: position.replace(' ', '_'),
       };
 
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
       axios
-        .post(`${BACKEND_URL}/counter_api/v1/candidate`, candidate)
+        .post(`${BACKEND_URL}/counter_api/v1/candidate`, candidate, config)
         .then((res) => {
           alert(`${res.data.name} agregado correctamente`);
 
