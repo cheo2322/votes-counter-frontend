@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -6,9 +6,13 @@ import VotesNavigator from './VotesNavigator';
 import CandidateNavigator from './CandidateNavigator';
 import UserNavigator from './UserNavigator';
 
+import AuthGlobal from '../Context/store/AuthGlobal';
+
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
+  const context = useContext(AuthGlobal);
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -28,19 +32,21 @@ const Main = () => {
         }}
       />
 
-      <Tab.Screen
-        name="Nuevo candidato"
-        component={CandidateNavigator}
-        options={{
-          headerTintColor: 'white',
-          tabBarIcon: ({ color }) => (
-            <Icon name="plus" color={color} size={30} />
-          ),
-          headerStyle: {
-            backgroundColor: '#1948BA',
-          },
-        }}
-      />
+      {context.stateUser.isAuthenticated ? (
+        <Tab.Screen
+          name="Nuevo candidato"
+          component={CandidateNavigator}
+          options={{
+            headerTintColor: 'white',
+            tabBarIcon: ({ color }) => (
+              <Icon name="plus" color={color} size={30} />
+            ),
+            headerStyle: {
+              backgroundColor: '#1948BA',
+            },
+          }}
+        />
+      ) : null}
 
       <Tab.Screen
         name="Usuario"

@@ -95,7 +95,6 @@ const AddVotes = ({ route, navigation }) => {
           alert(
             `Se sumaron ${votes} votos a ${candidate.name} ${candidate.lastName}`
           );
-          console.log(res.data);
 
           setDesk();
           setVotes();

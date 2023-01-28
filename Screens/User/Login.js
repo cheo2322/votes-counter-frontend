@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, StatusBar } from 'react-native';
 
 import FormContainer from '../../Shared/Form/FormContainer';
 import Input from '../../Shared/Form/Input';
@@ -8,6 +8,7 @@ import Error from '../../Shared/Error';
 // Context
 import AuthGlobal from '../../Context/store/AuthGlobal';
 import { loginUser } from '../../Context/actions/Auth.actions';
+import { NativeBaseProvider } from 'native-base';
 
 const Login = (props) => {
   const context = useContext(AuthGlobal);
@@ -16,7 +17,7 @@ const Login = (props) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (context.stateUser.isAuthenticated === true) {
+    if (context.stateUser.isAuthenticated) {
       props.navigation.navigate('UserProfile');
     }
   }, [context.stateUser.isAuthenticated]);
@@ -35,33 +36,41 @@ const Login = (props) => {
   };
 
   return (
-    <FormContainer title={'Iniciar sesión'}>
-      <Input
-        placeholder={'Ingrese el usuario'}
-        name={'username'}
-        id={'username'}
-        value={username}
-        onChangeText={(text) => setUsername(text)}
+    <NativeBaseProvider>
+      <StatusBar
+        animated={true}
+        backgroundColor="#1948BA"
+        barStyle={'light-content'}
       />
 
-      <Input
-        placeholder={'Ingrese la contraseña'}
-        name={'password'}
-        id={'password'}
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
+      <FormContainer title={'Iniciar sesión'}>
+        <Input
+          placeholder={'Ingrese el usuario'}
+          name={'username'}
+          id={'username'}
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
 
-      <View style={styles.buttonGroup}>
-        {error ? <Error message={error} /> : null}
-        <Button
-          title="Ingresar"
-          onPress={handleSubmit}
-          color={'#1948BA'}
-        ></Button>
-      </View>
-    </FormContainer>
+        <Input
+          placeholder={'Ingrese la contraseña'}
+          name={'password'}
+          id={'password'}
+          secureTextEntry={true}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+
+        <View style={styles.buttonGroup}>
+          {error ? <Error message={error} /> : null}
+          <Button
+            title="Ingresar"
+            onPress={handleSubmit}
+            color={'#1948BA'}
+          ></Button>
+        </View>
+      </FormContainer>
+    </NativeBaseProvider>
   );
 };
 
