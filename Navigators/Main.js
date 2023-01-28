@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import VotesNavigator from './VotesNavigator';
 import CandidateNavigator from './CandidateNavigator';
+import UserNavigator from './UserNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,7 @@ const Main = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="Nuevo candidato"
         component={CandidateNavigator}
@@ -37,6 +39,17 @@ const Main = () => {
           headerStyle: {
             backgroundColor: '#1948BA',
           },
+        }}
+      />
+
+      <Tab.Screen
+        name="Usuario"
+        component={UserNavigator}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Icon name="user" color={color} size={30} />
+          ),
         }}
       />
     </Tab.Navigator>

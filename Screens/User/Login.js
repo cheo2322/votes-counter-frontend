@@ -17,7 +17,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (context.stateUser.isAuthenticated === true) {
-      props.navigation.navigate('Main');
+      props.navigation.navigate('UserProfile');
     }
   }, [context.stateUser.isAuthenticated]);
 
@@ -37,25 +37,24 @@ const Login = (props) => {
   return (
     <FormContainer title={'Iniciar sesión'}>
       <Input
-        placeholder={'Enter email'}
+        placeholder={'Ingrese el usuario'}
         name={'username'}
         id={'username'}
         value={username}
         onChangeText={(text) => setUsername(text)}
       />
+
       <Input
-        placeholder={'Enter password'}
+        placeholder={'Ingrese la contraseña'}
         name={'password'}
         id={'password'}
         secureTextEntry={true}
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
+
       <View style={styles.buttonGroup}>
         {error ? <Error message={error} /> : null}
-        {/* <EasyButton large primary onPress={() => handleSubmit()}>
-          <Text style={{ color: 'white' }}>Login</Text>
-        </EasyButton> */}
         <Button
           title="Ingresar"
           onPress={handleSubmit}

@@ -5,25 +5,23 @@ import { BACKEND_URL } from '@env';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const loginUser = (user, dispatch) => {
-  console.log(user, JSON.stringify(user));
   fetch(`${BACKEND_URL}/counter_api/v1/auth/signIn`, {
     method: 'POST',
     body: JSON.stringify(user),
-    // headers: {
-    //   Accept: 'application/json',
-    //   'Content-Type': 'application/json',
-    // },
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
   })
     .then((res) => res.json())
     .then((data) => {
       if (data) {
         const token = data.accessToken;
         AsyncStorage.setItem('jwt', token);
+        console.log(token);
 
         const decoded = jwt_decode(token);
         dispatch(setCurrentUser(decoded, user));
-
-        console.log('User logged successfully.');
       } else {
         logoutUser(dispatch);
       }
@@ -31,7 +29,7 @@ export const loginUser = (user, dispatch) => {
     .catch((err) => {
       console.error(err.message);
 
-      alert('Not valid');
+      alert('Credenciales incorrectas!');
 
       logoutUser(dispatch);
     });
