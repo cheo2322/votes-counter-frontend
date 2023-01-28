@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from '@rneui/base';
+import { useIsFocused } from '@react-navigation/native';
 
 import { BACKEND_URL } from '@env';
 import Banner from '../../Shared/Banner/Banner';
@@ -28,6 +29,8 @@ const MainVotes = ({ navigation }) => {
   const [candidates, setCandidates] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [focusCandidate, setFocusCandidate] = useState({});
+
+  const isFocused = useIsFocused();
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -51,7 +54,7 @@ const MainVotes = ({ navigation }) => {
     return () => {
       setCandidates();
     };
-  }, []);
+  }, [isFocused]);
 
   const Item = ({ item, index }) => (
     <View

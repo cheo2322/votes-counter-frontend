@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Button, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import FormContainer from '../../Shared/Form/FormContainer';
 import Input from '../../Shared/Form/Input';
@@ -12,7 +13,7 @@ const parishes = [
   { value: 'URCUQUI', label: 'Urcuquí' },
   { value: 'PABLO_ARENAS', label: 'Pablo Arenas' },
   { value: 'CAHUASQUI', label: 'Cahuasquí' },
-  { value: 'BUENOS_AIRES', label: 'Buenos Aires' },
+  { value: 'LA_MERCED_DE_BUENOS_AIRES', label: 'Buenos Aires' },
   { value: 'SAN_BLAS', label: 'San Blas' },
   { value: 'TUMBABIRO', label: 'Tumbabiro' },
 ];
@@ -57,6 +58,8 @@ const deskTypes = ['FEMENINO', 'MASCULINO'];
 const AddVotes = ({ route, navigation }) => {
   const { candidate } = route.params;
 
+  const [token, setToken] = useState('');
+
   const [parish, setParish] = useState('');
   const [precinct, setPrecinct] = useState('');
   const [desk, setDesk] = useState();
@@ -67,6 +70,16 @@ const AddVotes = ({ route, navigation }) => {
   const [deskTypeDisabled, setDeskTypeDisabled] = useState(true);
   const [deskInputEditable, setDeskInputEditable] = useState(false);
   const [votesInputEditable, setVotesInputEditable] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem('jwt')
+      .then((res) => setToken(res))
+      .catch((error) => console.log(error));
+
+    return () => {
+      setToken();
+    };
+  }, []);
 
   const patchVotes = () => {
     if (
@@ -86,10 +99,19 @@ const AddVotes = ({ route, navigation }) => {
         deskType: deskType,
       };
 
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      console.log(config);
+
       axios
         .patch(
           `${BACKEND_URL}/counter_api/v1/candidate/${candidate.id}/votes/add`,
-          patchBody
+          patchBody,
+          config
         )
         .then((res) => {
           alert(
