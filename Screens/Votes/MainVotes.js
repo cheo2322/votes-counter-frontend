@@ -1,6 +1,6 @@
 //TODO: text color on modal
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import axios from 'axios';
 import {
   View,
@@ -19,7 +19,11 @@ import { Button } from '@rneui/base';
 import { BACKEND_URL } from '@env';
 import Banner from '../../Shared/Banner/Banner';
 
+import AuthGlobal from '../../Context/store/AuthGlobal';
+
 const MainVotes = ({ navigation }) => {
+  const context = useContext(AuthGlobal);
+
   const [refreshing, setRefreshing] = useState(false);
   const [candidates, setCandidates] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -164,16 +168,22 @@ const MainVotes = ({ navigation }) => {
         barStyle={'light-content'}
       />
 
-      <FlatList
-        data={candidates}
-        renderItem={({ item, index }) => (
-          <Item item={item} index={index} key={item.id} />
-        )}
-        keyExtractor={(item) => item.id}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+      {context.stateUser.isAuthenticated ? (
+        <FlatList
+          data={candidates}
+          renderItem={({ item, index }) => (
+            <Item item={item} index={index} key={item.id} />
+          )}
+          keyExtractor={(item) => item.id}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      ) : (
+        <View style={{ alignItems: 'center', marginTop: 20 }}>
+          <Text>Inice sesión para poder ver los datos</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

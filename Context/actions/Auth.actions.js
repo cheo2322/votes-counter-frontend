@@ -18,10 +18,9 @@ export const loginUser = (user, dispatch) => {
       if (data) {
         const token = data.accessToken;
         AsyncStorage.setItem('jwt', token);
-        console.log(token);
 
         const decoded = jwt_decode(token);
-        dispatch(setCurrentUser(decoded, user));
+        dispatch(setCurrentUser(decoded, { username: user.username }));
       } else {
         logoutUser(dispatch);
       }
