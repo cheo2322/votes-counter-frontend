@@ -185,6 +185,14 @@ const MainVotes = ({ navigation }) => {
       ) : (
         <View style={{ alignItems: 'center', marginTop: 20 }}>
           <Text>Inice sesión para poder ver los datos</Text>
+
+          <View style={styles.buttonGroup}>
+            <Button
+              title="Ir a iniciar sesión"
+              onPress={() => navigation.navigate('Usuario')}
+              color={'#1948BA'}
+            />
+          </View>
         </View>
       )}
     </SafeAreaView>
@@ -242,6 +250,11 @@ const styles = StyleSheet.create({
     height: '20%',
     backgroundColor: '#1948BA',
     marginTop: -20,
+  },
+  buttonGroup: {
+    width: '80%',
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
 
