@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Button, Text } from 'react-native';
-import SelectDropdown from 'react-native-select-dropdown';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import FormContainer from '../../Shared/Form/FormContainer';
 import Input from '../../Shared/Form/Input';
+
+import { Button } from '@rneui/base';
 
 import { BACKEND_URL } from '@env';
 
@@ -66,10 +67,7 @@ const AddVotes = ({ route, navigation }) => {
   const [deskType, setDeskType] = useState('');
   const [votes, setVotes] = useState();
   const [selectedPrecincts, setSelectedPrecincts] = useState([]);
-  const [precintSelectDisabled, setPrecinctSelectedDisabled] = useState(true);
-  const [deskTypeDisabled, setDeskTypeDisabled] = useState(true);
-  const [deskInputEditable, setDeskInputEditable] = useState(false);
-  const [votesInputEditable, setVotesInputEditable] = useState(false);
+  const [selectedDesks, setSelectedDesks] = useState([]);
 
   useEffect(() => {
     AsyncStorage.getItem('jwt')
@@ -126,6 +124,83 @@ const AddVotes = ({ route, navigation }) => {
     }
   };
 
+  const setParishAndSelectedPrecincts = (item, index) => {
+    setParish(item);
+    setPrecinct('');
+    setSelectedDesks([]);
+    setDeskType('');
+
+    if (index === 0) {
+      setSelectedPrecincts([precincts[4], precincts[9]]);
+    } else if (index === 1) {
+      setSelectedPrecincts([precincts[1], precincts[6]]);
+    } else if (index === 2) {
+      setSelectedPrecincts([precincts[3]]);
+    } else if (index === 3) {
+      setSelectedPrecincts([precincts[0], precincts[2]]);
+    } else if (index === 4) {
+      setSelectedPrecincts([precincts[5], precincts[8]]);
+    } else if (index === 5) {
+      setSelectedPrecincts([precincts[7]]);
+    }
+  };
+
+  const setPrecinctAndDeskStuff = (item) => {
+    setPrecinct(item);
+    setDeskType('');
+    setSelectedDesks([]);
+  };
+
+  const setDeskTypeAndDesks = (item, index) => {
+    setDeskType(item);
+    setDesk();
+
+    if (precinct === precincts[0].value || precinct === precincts[6].value) {
+      if (index === 0) {
+        setSelectedDesks(['1', '2']);
+      } else {
+        setSelectedDesks(['1', '2', '3']);
+      }
+    } else if (
+      precinct === precincts[1].value ||
+      precinct === precincts[2].value ||
+      precinct === precincts[8].value
+    ) {
+      if (index === 0) {
+        setSelectedDesks(['1']);
+      } else {
+        setSelectedDesks(['1']);
+      }
+    } else if (precinct === precincts[3].value) {
+      if (index === 0) {
+        setSelectedDesks(['1', '2', '3']);
+      } else {
+        setSelectedDesks(['1', '2', '3']);
+      }
+    } else if (
+      precinct === precincts[4].value ||
+      precinct === precincts[5].value
+    ) {
+      if (index === 0) {
+        setSelectedDesks(['1', '2', '3', '4']);
+      } else {
+        setSelectedDesks(['1', '2', '3', '4']);
+      }
+    } else if (precinct === precincts[7].value) {
+      if (index === 0) {
+        setSelectedDesks(['1', '2']);
+      } else {
+        setSelectedDesks(['1', '2']);
+      }
+    } else if (precinct === precincts[9].value) {
+      if (index === 0) {
+        setSelectedDesks(['1', '2', '3', '4', '5']);
+      } else {
+        setSelectedDesks(['1', '2', '3', '4', '5', '6']);
+      }
+    }
+  };
+
   return (
     <FormContainer>
       <Text>
@@ -136,100 +211,87 @@ const AddVotes = ({ route, navigation }) => {
         Votos totales: {candidate.totalVotes}
       </Text>
 
-      <SelectDropdown
-        data={parishes}
-        defaultValue={null}
-        defaultButtonText={'Seleccione una parroquia'}
-        buttonTextStyle={{ fontSize: 14 }}
-        rowTextStyle={{ fontSize: 14 }}
-        buttonStyle={{ width: 250, borderBottomColor: '#FEE101' }}
-        onSelect={(selectedItem, index) => {
-          if (index === 0) {
-            setSelectedPrecincts([precincts[4], precincts[9]]);
-          } else if (index === 1) {
-            setSelectedPrecincts([precincts[1], precincts[6]]);
-          } else if (index === 2) {
-            setSelectedPrecincts([precincts[3]]);
-          } else if (index === 3) {
-            setSelectedPrecincts([precincts[0], precincts[2]]);
-          } else if (index === 4) {
-            setSelectedPrecincts([precincts[5], precincts[8]]);
-          } else if (index === 5) {
-            setSelectedPrecincts([precincts[7]]);
-          }
+      <View style={{ padding: 10, flex: 1 }}>
+        <Text style={styles.label}>Seleccione una parroquia</Text>
+        <View style={styles.row}>
+          {parishes.map((item, index) => (
+            <TouchableOpacity
+              key={item.value}
+              onPress={() => setParishAndSelectedPrecincts(item.value, index)}
+              style={[styles.button, parish === item.value && styles.selected]}
+            >
+              <Text style={styles.buttonLabel}>{item.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
 
-          setPrecinctSelectedDisabled(false);
+      {parish !== '' ? (
+        <View style={{ padding: 10, flex: 1 }}>
+          <Text style={styles.label}>Seleccione un recinto electoral</Text>
+          <View style={styles.row}>
+            {selectedPrecincts.map((item, index) => (
+              <TouchableOpacity
+                key={item.value}
+                onPress={() => setPrecinctAndDeskStuff(item.value, index)}
+                style={[
+                  styles.button,
+                  precinct === item.value && styles.selected,
+                ]}
+              >
+                <Text style={styles.buttonLabel}>{item.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      ) : null}
 
-          setParish(selectedItem.value);
-        }}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem.label;
-        }}
-        rowTextForSelection={(item) => {
-          return item.label;
-        }}
-      />
+      {precinct !== '' ? (
+        <View style={{ padding: 10, flex: 1 }}>
+          <Text style={styles.label}>Seleccione un tipo de mesa</Text>
+          <View style={styles.row}>
+            {deskTypes.map((item, index) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => setDeskTypeAndDesks(item, index)}
+                style={[styles.button, deskType === item && styles.selected]}
+              >
+                <Text style={styles.buttonLabel}>{item}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      ) : null}
 
-      <SelectDropdown
-        data={selectedPrecincts}
-        disabled={precintSelectDisabled}
-        defaultButtonText={'Seleccione un recinto electoral'}
-        buttonTextStyle={{ fontSize: 14 }}
-        rowTextStyle={{ fontSize: 14 }}
-        buttonStyle={{ width: 250 }}
-        onSelect={(selectedItem) => {
-          setDeskTypeDisabled(false);
-          setPrecinct(selectedItem.value);
-        }}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem.label;
-        }}
-        rowTextForSelection={(item) => {
-          return item.label;
-        }}
-      />
+      {deskType !== '' ? (
+        <View style={{ padding: 10, flex: 1 }}>
+          <Text style={styles.label}>
+            Seleccione el número de mesa (junta receptora del voto)
+          </Text>
+          <View style={styles.row}>
+            {selectedDesks.map((item) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => setDesk(item)}
+                style={[styles.button, desk === item && styles.selected]}
+              >
+                <Text style={styles.buttonLabel}>{item}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      ) : null}
 
-      <SelectDropdown
-        data={deskTypes}
-        disabled={deskTypeDisabled}
-        defaultButtonText={'Seleccione un tipo de mesa'}
-        buttonTextStyle={{ fontSize: 14 }}
-        rowTextStyle={{ fontSize: 14 }}
-        buttonStyle={{ width: 250 }}
-        onSelect={(selectedItem) => {
-          setDeskInputEditable(true);
-          setDeskType(selectedItem);
-        }}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem;
-        }}
-        rowTextForSelection={(item) => {
-          return item;
-        }}
-      />
-
-      <Input
-        editable={deskInputEditable}
-        placeholder={'Número de mesa (junta receptora del voto)'}
-        name={'desk'}
-        id={'desk'}
-        value={desk}
-        keyboardType={'numeric'}
-        onChangeText={(text) => {
-          setVotesInputEditable(true);
-          setDesk(text);
-        }}
-      />
-
-      <Input
-        editable={votesInputEditable}
-        placeholder={'Número de votos'}
-        name={'votes'}
-        id={'votes'}
-        value={votes}
-        keyboardType={'numeric'}
-        onChangeText={(text) => setVotes(text)}
-      />
+      {desk ? (
+        <Input
+          placeholder={'Número de votos'}
+          name={'votes'}
+          id={'votes'}
+          value={votes}
+          keyboardType={'numeric'}
+          onChangeText={(text) => setVotes(text)}
+        />
+      ) : null}
 
       <View style={styles.buttonGroup}>
         <Button title="Enviar" onPress={patchVotes} color={'#1948BA'}></Button>
@@ -244,15 +306,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 40,
   },
-  input: {
-    width: '80%',
-    height: 60,
-    backgroundColor: 'white',
-    margin: 10,
-    borderRadius: 20,
-    padding: 10,
-    borderWidth: 2,
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    borderWidth: 1,
     borderColor: '#FEE101',
+    backgroundColor: '#F7F7F7',
+    alignSelf: 'flex-start',
+    marginHorizontal: '1%',
+    marginBottom: 6,
+    minWidth: '30%',
+    textAlign: 'center',
+  },
+  selected: {
+    backgroundColor: '#FEE101',
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+  },
+  label: {
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 
