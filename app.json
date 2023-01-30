@@ -2,7 +2,7 @@
   "expo": {
     "name": "Votos Avanza Urcuquí 2023",
     "slug": "Votos2023",
-    "version": "1.6.2",
+    "version": "1.7.0",
     "orientation": "portrait",
     "icon": "./assets/new_arts/icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.cheohidalgo.Votos2023",
-      "buildNumber": "3"
+      "buildNumber": "4"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.cheohidalgo.Votos2023",
-      "versionCode": 8
+      "versionCode": 9
     },
     "web": {
       "favicon": "./assets/arts/favicon.png"
