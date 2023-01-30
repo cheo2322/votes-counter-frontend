@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Button, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import FormContainer from '../../Shared/Form/FormContainer';
 import Input from '../../Shared/Form/Input';
+
+import { Button } from '@rneui/base';
 
 import { BACKEND_URL } from '@env';
 
@@ -71,6 +73,8 @@ const AddVotes = ({ route, navigation }) => {
   const [deskInputEditable, setDeskInputEditable] = useState(false);
   const [votesInputEditable, setVotesInputEditable] = useState(false);
 
+  const [enabled1, setEnabled1] = useState(false);
+
   useEffect(() => {
     AsyncStorage.getItem('jwt')
       .then((res) => setToken(res))
@@ -128,6 +132,12 @@ const AddVotes = ({ route, navigation }) => {
     }
   };
 
+  const function1 = () => {
+    setEnabled1(true);
+
+    console.log(enabled1);
+  };
+
   return (
     <FormContainer>
       <Text>
@@ -138,7 +148,39 @@ const AddVotes = ({ route, navigation }) => {
         Votos totales: {candidate.totalVotes}
       </Text>
 
-      <SelectDropdown
+      <View style={{ flexDirection: 'row' }}>
+        {parishes.slice(0, 3).map((item, index) => {
+          return (
+            <Button
+              key={index}
+              title={item.label}
+              type="outline"
+              onPress={function1}
+            />
+          );
+        })}
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        {parishes.slice(3, 6).map((item, index) => {
+          return (
+            <Button
+              key={index}
+              title={item.label}
+              type="outline"
+              onPress={function1}
+            />
+          );
+        })}
+      </View>
+
+      {enabled1 ? (
+        <View style={{ flexDirection: 'row', marginTop: 20 }}>
+          <Button title="Option 1" type="outline" />
+          <Button title="Option 2" type="outline" />
+        </View>
+      ) : null}
+
+      {/* <SelectDropdown
         data={parishes}
         defaultValue={null}
         defaultButtonText={'Seleccione una parroquia'}
@@ -231,7 +273,7 @@ const AddVotes = ({ route, navigation }) => {
         value={votes}
         keyboardType={'numeric'}
         onChangeText={(text) => setVotes(text)}
-      />
+      /> */}
 
       <View style={styles.buttonGroup}>
         <Button title="Enviar" onPress={patchVotes} color={'#1948BA'}></Button>
