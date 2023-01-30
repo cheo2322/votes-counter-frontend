@@ -4,19 +4,17 @@
     "slug": "Votos2023",
     "version": "1.5.0",
     "orientation": "portrait",
-    "icon": "./assets/icon/icon.png",
+    "icon": "./assets/arts/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon/splash.png",
+      "image": "./assets/arts/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#1948BA"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.cheohidalgo.Votos2023",
@@ -24,14 +22,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/arts/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.cheohidalgo.Votos2023",
       "versionCode": 3
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/arts/favicon.png"
     },
     "extra": {
       "eas": {

@@ -7,7 +7,7 @@ const Banner = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../../assets/banner/logo.png')}
+        source={require('../../assets/arts/banner.png')}
         style={styles.imageBanner}
         resizeMode="contain"
       />
