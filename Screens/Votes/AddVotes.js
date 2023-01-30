@@ -1,8 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SimpleSelectButton from 'react-native-simple-select-button';
 
 import FormContainer from '../../Shared/Form/FormContainer';
 import Input from '../../Shared/Form/Input';
@@ -68,12 +75,7 @@ const AddVotes = ({ route, navigation }) => {
   const [deskType, setDeskType] = useState('');
   const [votes, setVotes] = useState();
   const [selectedPrecincts, setSelectedPrecincts] = useState([]);
-  const [precintSelectDisabled, setPrecinctSelectedDisabled] = useState(true);
-  const [deskTypeDisabled, setDeskTypeDisabled] = useState(true);
-  const [deskInputEditable, setDeskInputEditable] = useState(false);
-  const [votesInputEditable, setVotesInputEditable] = useState(false);
-
-  const [enabled1, setEnabled1] = useState(false);
+  const [selectedDesks, setSelectedDesks] = useState([]);
 
   useEffect(() => {
     AsyncStorage.getItem('jwt')
@@ -130,10 +132,46 @@ const AddVotes = ({ route, navigation }) => {
     }
   };
 
-  const function1 = () => {
-    setEnabled1(true);
+  const f1 = (item, index) => {
+    setParish(item);
+    setPrecinct('');
+    setSelectedDesks([]);
 
-    console.log(enabled1);
+    if (index === 0) {
+      setSelectedPrecincts([precincts[4], precincts[9]]);
+    } else if (index === 1) {
+      setSelectedPrecincts([precincts[1], precincts[6]]);
+    } else if (index === 2) {
+      setSelectedPrecincts([precincts[3]]);
+    } else if (index === 3) {
+      setSelectedPrecincts([precincts[0], precincts[2]]);
+    } else if (index === 4) {
+      setSelectedPrecincts([precincts[5], precincts[8]]);
+    } else if (index === 5) {
+      setSelectedPrecincts([precincts[7]]);
+    }
+  };
+
+  const f2 = (item) => {
+    setPrecinct(item);
+    setDeskType('');
+    setSelectedDesks([]);
+  };
+
+  const f3 = (item, index) => {
+    setDeskType(item);
+    setDesk();
+    setSelectedDesks([]);
+
+    // switch(precinct)
+
+    if (precinct === precincts[0].value) {
+      if (index === 0) {
+        setSelectedDesks(['1', '2']);
+      } else {
+        setSelectedDesks(['1', '2', '3']);
+      }
+    }
   };
 
   return (
@@ -146,35 +184,102 @@ const AddVotes = ({ route, navigation }) => {
         Votos totales: {candidate.totalVotes}
       </Text>
 
-      <View style={{ flexDirection: 'row' }}>
-        {parishes.slice(0, 3).map((item, index) => {
-          return (
-            <Button
-              key={index}
-              title={item.label}
-              type="outline"
-              onPress={function1}
-            />
-          );
-        })}
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        {parishes.slice(3, 6).map((item, index) => {
-          return (
-            <Button
-              key={index}
-              title={item.label}
-              type="outline"
-              onPress={function1}
-            />
-          );
-        })}
+      <View style={{ padding: 10, flex: 1 }}>
+        <Text style={styles.label}>Seleccione una parroquia</Text>
+        <View style={styles.row}>
+          {parishes.map((item, index) => (
+            <TouchableOpacity
+              key={item.value}
+              onPress={() => f1(item.value, index)}
+              style={[styles.button, parish === item.value && styles.selected]}
+            >
+              <Text
+                style={[
+                  styles.buttonLabel,
+                  parish === item.value && styles.selectedLabel,
+                ]}
+              >
+                {item.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
 
-      {enabled1 ? (
-        <View style={{ flexDirection: 'row', marginTop: 20 }}>
-          <Button title="Option 1" type="outline" />
-          <Button title="Option 2" type="outline" />
+      {parish !== '' ? (
+        <View style={{ padding: 10, flex: 1 }}>
+          <Text style={styles.label}>Seleccione un recinto electoral</Text>
+          <View style={styles.row}>
+            {selectedPrecincts.map((item, index) => (
+              <TouchableOpacity
+                key={item.value}
+                onPress={() => f2(item.value, index)}
+                style={[
+                  styles.button,
+                  precinct === item.value && styles.selected,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.buttonLabel,
+                    precinct === item.value && styles.selectedLabel,
+                  ]}
+                >
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      ) : null}
+
+      {precinct !== '' ? (
+        <View style={{ padding: 10, flex: 1 }}>
+          <Text style={styles.label}>Seleccione un tipo de mesa</Text>
+          <View style={styles.row}>
+            {deskTypes.map((item, index) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => f3(item, index)}
+                style={[styles.button, deskType === item && styles.selected]}
+              >
+                <Text
+                  style={[
+                    styles.buttonLabel,
+                    deskType === item && styles.selectedLabel,
+                  ]}
+                >
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      ) : null}
+
+      {deskType !== '' ? (
+        <View style={{ padding: 10, flex: 1 }}>
+          <Text style={styles.label}>
+            Seleccione el número de mesa (junta receptora del voto)
+          </Text>
+          <View style={styles.row}>
+            {selectedDesks.map((item) => (
+              <TouchableOpacity
+                key={item}
+                onPress={() => setDesk(item)}
+                style={[styles.button, deskType === item && styles.selected]}
+              >
+                <Text
+                  style={[
+                    styles.buttonLabel,
+                    deskType === item && styles.selectedLabel,
+                  ]}
+                >
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       ) : null}
 
@@ -295,6 +400,50 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     borderColor: '#FEE101',
+  },
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: 'aliceblue',
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#FEE101',
+    backgroundColor: '#F7F7F7',
+    alignSelf: 'flex-start',
+    marginHorizontal: '1%',
+    marginBottom: 6,
+    minWidth: '30%',
+    textAlign: 'center',
+  },
+  selected: {
+    backgroundColor: '#FEE101',
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    // fontWeight: '500',
+  },
+  selectedLabel: {
+    // color: 'white',
+  },
+  label: {
+    textAlign: 'center',
+    marginBottom: 10,
+
+    // fontSize: 24,
   },
 });
 
