@@ -18,7 +18,6 @@ import { Button } from '@rneui/base';
 import { useIsFocused } from '@react-navigation/native';
 
 import { BACKEND_URL } from '@env';
-import Banner from '../../Shared/Banner/Banner';
 
 import AuthGlobal from '../../Context/store/AuthGlobal';
 
@@ -160,10 +159,6 @@ const MainVotes = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-
-      <View style={styles.bannerView}>
-        <Banner />
-      </View>
 
       <StatusBar
         animated={true}
