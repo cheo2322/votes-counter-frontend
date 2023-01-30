@@ -22,7 +22,7 @@ const CandidateNavigator = () => {
   useEffect(() => {
     AsyncStorage.getItem('jwt')
       .then((res) => setToken(res))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
 
     return () => {
       setToken();

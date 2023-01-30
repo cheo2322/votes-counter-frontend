@@ -78,7 +78,7 @@ const AddVotes = ({ route, navigation }) => {
   useEffect(() => {
     AsyncStorage.getItem('jwt')
       .then((res) => setToken(res))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
 
     return () => {
       setToken();
@@ -108,8 +108,6 @@ const AddVotes = ({ route, navigation }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-
-      console.log(config);
 
       axios
         .patch(
