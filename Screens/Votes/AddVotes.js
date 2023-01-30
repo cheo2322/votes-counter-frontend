@@ -124,7 +124,7 @@ const AddVotes = ({ route, navigation }) => {
     }
   };
 
-  const f1 = (item, index) => {
+  const setParishAndSelectedPrecincts = (item, index) => {
     setParish(item);
     setPrecinct('');
     setSelectedDesks([]);
@@ -145,13 +145,13 @@ const AddVotes = ({ route, navigation }) => {
     }
   };
 
-  const f2 = (item) => {
+  const setPrecinctAndDeskStuff = (item) => {
     setPrecinct(item);
     setDeskType('');
     setSelectedDesks([]);
   };
 
-  const f3 = (item, index) => {
+  const setDeskTypeAndDesks = (item, index) => {
     setDeskType(item);
     setDesk();
 
@@ -217,7 +217,7 @@ const AddVotes = ({ route, navigation }) => {
           {parishes.map((item, index) => (
             <TouchableOpacity
               key={item.value}
-              onPress={() => f1(item.value, index)}
+              onPress={() => setParishAndSelectedPrecincts(item.value, index)}
               style={[styles.button, parish === item.value && styles.selected]}
             >
               <Text
@@ -240,7 +240,7 @@ const AddVotes = ({ route, navigation }) => {
             {selectedPrecincts.map((item, index) => (
               <TouchableOpacity
                 key={item.value}
-                onPress={() => f2(item.value, index)}
+                onPress={() => setPrecinctAndDeskStuff(item.value, index)}
                 style={[
                   styles.button,
                   precinct === item.value && styles.selected,
@@ -267,7 +267,7 @@ const AddVotes = ({ route, navigation }) => {
             {deskTypes.map((item, index) => (
               <TouchableOpacity
                 key={item}
-                onPress={() => f3(item, index)}
+                onPress={() => setDeskTypeAndDesks(item, index)}
                 style={[styles.button, deskType === item && styles.selected]}
               >
                 <Text
