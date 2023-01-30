@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.cheohidalgo.Votos2023",
@@ -26,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.cheohidalgo.Votos2023",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "favicon": "./assets/arts/favicon.png"
