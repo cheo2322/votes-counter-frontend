@@ -220,14 +220,7 @@ const AddVotes = ({ route, navigation }) => {
               onPress={() => setParishAndSelectedPrecincts(item.value, index)}
               style={[styles.button, parish === item.value && styles.selected]}
             >
-              <Text
-                style={[
-                  styles.buttonLabel,
-                  parish === item.value && styles.selectedLabel,
-                ]}
-              >
-                {item.label}
-              </Text>
+              <Text style={styles.buttonLabel}>{item.label}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -246,14 +239,7 @@ const AddVotes = ({ route, navigation }) => {
                   precinct === item.value && styles.selected,
                 ]}
               >
-                <Text
-                  style={[
-                    styles.buttonLabel,
-                    precinct === item.value && styles.selectedLabel,
-                  ]}
-                >
-                  {item.label}
-                </Text>
+                <Text style={styles.buttonLabel}>{item.label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -270,14 +256,7 @@ const AddVotes = ({ route, navigation }) => {
                 onPress={() => setDeskTypeAndDesks(item, index)}
                 style={[styles.button, deskType === item && styles.selected]}
               >
-                <Text
-                  style={[
-                    styles.buttonLabel,
-                    deskType === item && styles.selectedLabel,
-                  ]}
-                >
-                  {item}
-                </Text>
+                <Text style={styles.buttonLabel}>{item}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -296,14 +275,7 @@ const AddVotes = ({ route, navigation }) => {
                 onPress={() => setDesk(item)}
                 style={[styles.button, desk === item && styles.selected]}
               >
-                <Text
-                  style={[
-                    styles.buttonLabel,
-                    desk === item && styles.selectedLabel,
-                  ]}
-                >
-                  {item}
-                </Text>
+                <Text style={styles.buttonLabel}>{item}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -334,25 +306,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 40,
   },
-  input: {
-    width: '80%',
-    height: 60,
-    backgroundColor: 'white',
-    margin: 10,
-    borderRadius: 20,
-    padding: 10,
-    borderWidth: 2,
-    borderColor: '#FEE101',
-  },
-  container: {
-    flex: 1,
-    marginTop: 8,
-    backgroundColor: 'aliceblue',
-  },
-  box: {
-    width: 50,
-    height: 50,
-  },
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -377,16 +330,10 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 12,
-    // fontWeight: '500',
-  },
-  selectedLabel: {
-    // color: 'white',
   },
   label: {
     textAlign: 'center',
     marginBottom: 10,
-
-    // fontSize: 24,
   },
 });
 
